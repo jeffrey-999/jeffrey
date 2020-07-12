@@ -6,7 +6,7 @@
 /*   By: yonam <yonam@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 13:28:33 by yonam             #+#    #+#             */
-/*   Updated: 2020/07/12 13:28:35 by yonam            ###   ########.fr       */
+/*   Updated: 2020/07/12 13:30:32 by yonam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,7 +248,7 @@ void			set_col_row(char *argv, char *a)
 	{
 		if (argv[i] <= '9' && argv[i] >= '0')
 		{
-			A[index] = argv[i];
+			a[index] = argv[i];
 			index++;
 		}
 		i++;
