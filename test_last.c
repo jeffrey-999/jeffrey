@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test_last.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yonam <yonam@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/12 13:28:33 by yonam             #+#    #+#             */
+/*   Updated: 2020/07/12 13:28:35 by yonam            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 
-int check(char b[4][4], int k, int i, int z)
+int			check(char b[4][4], int k, int i, int z)
 {
 	int j;
 
@@ -8,23 +20,25 @@ int check(char b[4][4], int k, int i, int z)
 	while (j < 4)
 	{
 		if (b[k][j] == z + 48)
-			return 0;
+			return (0);
 		j++;
 	}
 	j = 0;
 	while (j < 4)
 	{
 		if (b[j][i] == z + 48)
-			return 0;
+			return (0);
 		j++;
 	}
-	return 1;
+	return (1);
 }
 
-int checkskyup(char *a, char b[4][4], int i, int k, int count)
+int			checkskyup(char *a, char b[4][4], int i, int k)
 {
-	char s;
+	char	s;
+	int		count;
 
+	count = 1;
 	while (k < 4)
 	{
 		s = b[k][i];
@@ -39,19 +53,21 @@ int checkskyup(char *a, char b[4][4], int i, int k, int count)
 		}
 		if (count + 48 != *(a + k))
 		{
-			return 0;
+			return (0);
 		}
 		k++;
 		i = 0;
 		count = 1;
 	}
-	return 1;
+	return (1);
 }
 
-int checkskydown(char *a, char b[4][4], int i, int k, int count)
+int			checkskydown(char *a, char b[4][4], int i, int k)
 {
-	char s;
-	
+	char	s;
+	int		count;
+
+	count = 1;
 	while (k < 4)
 	{
 		s = b[k][3 - i];
@@ -66,19 +82,21 @@ int checkskydown(char *a, char b[4][4], int i, int k, int count)
 		}
 		if (count + 48 != *(a + k + 4))
 		{
-			return 0;
+			return (0);
 		}
 		k++;
 		i = 0;
 		count = 1;
 	}
-	return 1;
+	return (1);
 }
 
-int checkskyleft(char *a, char b[4][4], int i, int k, int count)
+int			checkskyleft(char *a, char b[4][4], int i, int k)
 {
-	char s;
+	char	s;
+	int		count;
 
+	count = 1;
 	while (i < 4)
 	{
 		s = b[k][i];
@@ -92,18 +110,20 @@ int checkskyleft(char *a, char b[4][4], int i, int k, int count)
 			k++;
 		}
 		if (count + 48 != *(a + i + 8))
-			return 0;
+			return (0);
 		i++;
 		k = 0;
 		count = 1;
 	}
-	return 1;
+	return (1);
 }
 
-int checkskyright(char *a, char b[4][4], int i, int k, int count)
+int			checkskyright(char *a, char b[4][4], int i, int k)
 {
-	char s;
+	char	s;
+	int		count;
 
+	count = 1;
 	while (i < 4)
 	{
 		s = b[3 - k][i];
@@ -117,15 +137,15 @@ int checkskyright(char *a, char b[4][4], int i, int k, int count)
 			k++;
 		}
 		if (count + 48 != *(a + i + 12))
-			return 0;
+			return (0);
 		i++;
 		k = 0;
 		count = 1;
 	}
-	return 1;
+	return (1);
 }
 
-int checksky(char *a, char b[4][4])
+int			checksky(char *a, char b[4][4])
 {
 	int i;
 	int k;
@@ -134,41 +154,43 @@ int checksky(char *a, char b[4][4])
 	i = 0;
 	k = 0;
 	count = 1;
-	if (checkskyup(a, b, i, k, count) == 0)
-		return 0;
-	if (checkskydown(a, b, i, k, count) == 0)
-		return 0;
-	if (checkskyleft(a, b, i, k, count) == 0)
-		return 0;
-	if (checkskyright(a, b, i, k, count) == 0)
-		return 0;
-	return 1;
+	if (checkskyup(a, b, i, k) == 0)
+		return (0);
+	if (checkskydown(a, b, i, k) == 0)
+		return (0);
+	if (checkskyleft(a, b, i, k) == 0)
+		return (0);
+	if (checkskyright(a, b, i, k) == 0)
+		return (0);
+	return (1);
 }
 
 int sky(char *a, char b[4][4]);
 
-int sky_2(char *a, char b[4][4], int i, int k)
+int			sky_2(char *a, char b[4][4], int i, int k)
 {
+	int z;
+
 	if (b[k][i] == 0)
 	{
-		int z = 4;
+		z = 4;
 		while (z > 0)
 		{
 			if (check(b, k, i, z) == 1)
 			{
 				b[k][i] = z + 48;
 				if (sky(a, b) == 1)
-					return 1;
+					return (1);
 				b[k][i] = 0;
 			}
 			z--;
 		}
-		return 0;
+		return (0);
 	}
-	return 2;
+	return (2);
 }
 
-int sky(char *a, char b[4][4])
+int			sky(char *a, char b[4][4])
 {
 	int i;
 	int k;
@@ -181,30 +203,32 @@ int sky(char *a, char b[4][4])
 		while (k < 4)
 		{
 			if (sky_2(a, b, i, k) == 0)
-				return 0;
+				return (0);
 			if (sky_2(a, b, i, k) == 1)
-				return 1;
+				return (1);
 			k++;
 		}
 		i++;
 	}
 	if (checksky(a, b) == 0)
-		return 0;
-	return 1;
+		return (0);
+	return (1);
 }
 
-void print(char *a, char b[4][4])
+void			print(char *a, char b[4][4])
 {
 	int i;
 	int k;
 
 	i = 0;
 	k = 0;
-	while (i < 4) // 답 출력
+	while (i < 4)
 	{
 		while (k < 4)
 		{
 			write(1, &b[k][i], 1);
+			if (k % 4 != 3)
+				write(1, " ", 1);
 			k++;
 		}
 		i++;
@@ -213,21 +237,35 @@ void print(char *a, char b[4][4])
 	}
 }
 
-int main(int argc, char* argv[])
+void			set_col_row(char *argv, char *a)
 {
-	char A[16]={'1','2','3','2','3','2','1','2','1','3','2','3','4','1','2','2'};
-	char B[4][4]; // 답을 넣을 칸
 	int i;
+	int index;
 
 	i = 0;
-	/*
-	while (i < 16)
+	index = 0;
+	while (argv[i] != '\0')
 	{
-		A[i] = *argv[i];
+		if (argv[i] <= '9' && argv[i] >= '0')
+		{
+			A[index] = argv[i];
+			index++;
+		}
 		i++;
 	}
-	*/
-	sky(A, B);
-	print(A, B);
 }
 
+int			main(int argc, char *argv[])
+{
+	char	a[16];
+	char	b[4][4];
+	int		i;
+
+	i = 0;
+	if (argc == 2)
+	{
+		set_col_row(argv[1], a);
+	}
+	sky(a, b);
+	print(a, b);
+}
